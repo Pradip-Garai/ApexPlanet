@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modern Image Gallery</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="gallery-container">
+    <header class="gallery-header">
+      <h1>Modern Gallery</h1>
+      <p>Beautifully curated images with smooth interactions</p>
+    </header>
+
+    <div class="filter-buttons">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="nature">Nature</button>
+      <button class="filter-btn" data-filter="architecture">Architecture</button>
+      <button class="filter-btn" data-filter="people">People</button>
+    </div>
+
+    <div class="gallery-grid"></div>
+
+    <div class="lightbox">
+      <div class="lightbox-content">
+        <span class="close-btn">&times;</span>
+        <img src="" alt="Lightbox Image" class="lightbox-img">
+        <div class="lightbox-caption"></div>
+        <button class="lightbox-nav prev"><i class="fas fa-chevron-left"></i></button>
+        <button class="lightbox-nav next"><i class="fas fa-chevron-right"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
