@@ -3,64 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern Quiz App</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <title>Interactive Quiz App</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="quiz-app">
+    <div class="quiz-container">
         <div class="quiz-header">
-            <div class="quiz-info">
-                <div class="quiz-title">Knowledge Challenge</div>
-                <div class="quiz-progress">
-                    <span id="current-question">1</span>/<span id="total-questions">5</span>
-                </div>
+            <h2>General Knowledge Quiz</h2>
+            <div class="timer-container">
+                <div class="timer-bar" id="timer-bar"></div>
             </div>
-            <div class="quiz-stats">
-                <div class="score-box">
-                    <span class="stat-label">Score</span>
-                    <span id="score" class="stat-value">0</span>
-                </div>
-                <div class="timer-box">
-                    <span class="stat-label">Time</span>
-                    <span id="timer" class="stat-value">30</span>
-                </div>
+            <div class="timer-text" id="timer-text">30s</div>
+        </div>
+        
+        <div class="quiz-body" id="quiz-body">
+            <div class="question-number" id="question-number">Question 1 of 5</div>
+            <div class="question-text" id="question-text">Which planet is known as the Red Planet?</div>
+            
+            <div class="options-container" id="options-container">
+                <div class="option" data-index="0">Venus</div>
+                <div class="option" data-index="1">Mars</div>
+                <div class="option" data-index="2">Jupiter</div>
+                <div class="option" data-index="3">Saturn</div>
             </div>
         </div>
-
-        <div class="quiz-content">
-            <div class="question-container">
-                <div id="question" class="question-text">Ready to test your knowledge?</div>
-                <div id="answer-buttons" class="answer-grid">
-                    <!-- Answer buttons will be inserted here by JavaScript -->
-                </div>
-            </div>
-
-            <div class="progress-container">
-                <div class="progress-bar">
-                    <div id="progress" class="progress-fill"></div>
-                </div>
-            </div>
+        
+        <div class="quiz-footer">
+            <button id="prev-btn" disabled>Previous</button>
+            <button id="next-btn">Next Question</button>
+            <button id="submit-btn">Submit Quiz</button>
         </div>
-
-        <div class="quiz-controls">
-            <button id="start-btn" class="control-btn start-btn">Start Quiz</button>
-            <button id="next-btn" class="control-btn next-btn hide">Next Question</button>
-            <button id="restart-btn" class="control-btn restart-btn hide">Play Again</button>
-        </div>
-
-        <div id="results" class="results-container hide">
-            <div class="results-card">
-                <h2>Quiz Completed!</h2>
-                <div class="results-score">
-                    You scored <span id="final-score">0</span> out of <span id="max-score">5</span>
-                </div>
-                <div class="results-message" id="results-message"></div>
-                <div class="results-emoji" id="results-emoji"></div>
-            </div>
+        
+        <div class="result-container" id="result-container">
+            <h2>Quiz Completed!</h2>
+            <div class="score-text" id="score-text">0/5</div>
+            <div class="message" id="message">Thanks for completing the quiz!</div>
+            <button id="restart-btn">Restart Quiz</button>
         </div>
     </div>
 
-    <script src="index.js"></script>
+    <script src="./index.js"> </script>
 </body>
 </html>

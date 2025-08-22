@@ -1,252 +1,221 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // DOM Elements
-    const startButton = document.getElementById('start-btn');
-    const nextButton = document.getElementById('next-btn');
-    const restartButton = document.getElementById('restart-btn');
-    const questionElement = document.getElementById('question');
-    const answerButtonsElement = document.getElementById('answer-buttons');
-    const scoreElement = document.getElementById('score');
-    const currentQuestionElement = document.getElementById('current-question');
-    const totalQuestionsElement = document.getElementById('total-questions');
-    const timerElement = document.getElementById('timer');
-    const resultsElement = document.getElementById('results');
-    const finalScoreElement = document.getElementById('final-score');
-    const maxScoreElement = document.getElementById('max-score');
-    const resultsMessageElement = document.getElementById('results-message');
-    const resultsEmojiElement = document.getElementById('results-emoji');
-    const progressFillElement = document.getElementById('progress');
-
-    // Quiz variables
-    let shuffledQuestions, currentQuestionIndex, score, timer, timeLeft;
-
-    // Quiz questions
-    const questions = [
-        {
-            question: 'What is the capital of France?',
-            answers: [
-                { text: 'London', correct: false },
-                { text: 'Paris', correct: true },
-                { text: 'Berlin', correct: false },
-                { text: 'Madrid', correct: false }
-            ]
-        },
-        {
-            question: 'Which planet is known as the Red Planet?',
-            answers: [
-                { text: 'Venus', correct: false },
-                { text: 'Mars', correct: true },
-                { text: 'Jupiter', correct: false },
-                { text: 'Saturn', correct: false }
-            ]
-        },
-        {
-            question: 'What is the largest mammal in the world?',
-            answers: [
-                { text: 'Elephant', correct: false },
-                { text: 'Blue Whale', correct: true },
-                { text: 'Giraffe', correct: false },
-                { text: 'Polar Bear', correct: false }
-            ]
-        },
-        {
-            question: 'Which language runs in a web browser?',
-            answers: [
-                { text: 'Java', correct: false },
-                { text: 'C', correct: false },
-                { text: 'Python', correct: false },
-                { text: 'JavaScript', correct: true }
-            ]
-        },
-        {
-            question: 'What year was JavaScript launched?',
-            answers: [
-                { text: '1996', correct: false },
-                { text: '1995', correct: true },
-                { text: '1994', correct: false },
-                { text: 'None of the above', correct: false }
-            ]
-        }
-    ];
-
-    // Constants
-    const QUESTION_TIME = 30; // 30 seconds per question
-
-    // Initialize the quiz
-    function startQuiz() {
-        score = 0;
-        currentQuestionIndex = 0;
-        shuffledQuestions = questions.sort(() => Math.random() - 0.5);
-        totalQuestionsElement.textContent = shuffledQuestions.length;
-        scoreElement.textContent = score;
-        
-        startButton.classList.add('hide');
-        nextButton.classList.add('hide');
-        restartButton.classList.add('hide');
-        resultsElement.classList.add('hide');
-        
-        showQuestion(shuffledQuestions[currentQuestionIndex]);
-        startTimer();
-    }
-
-    // Display the current question
-    function showQuestion(question) {
-        currentQuestionElement.textContent = currentQuestionIndex + 1;
-        questionElement.textContent = question.question;
-        
-        // Clear previous answer buttons
-        while (answerButtonsElement.firstChild) {
-            answerButtonsElement.removeChild(answerButtonsElement.firstChild);
-        }
-        
-        // Create new answer buttons
-        question.answers.forEach(answer => {
-            const button = document.createElement('button');
-            button.textContent = answer.text;
-            button.classList.add('answer-btn');
-            if (answer.correct) {
-                button.dataset.correct = answer.correct;
-            }
-            button.addEventListener('click', selectAnswer);
-            answerButtonsElement.appendChild(button);
-        });
-    }
-
-    // Start the timer for the current question
-    function startTimer() {
-        timeLeft = QUESTION_TIME;
-        timerElement.textContent = timeLeft;
-        updateProgressBar();
-        
-        // Clear any existing timer
-        if (timer) {
-            clearInterval(timer);
-        }
-        
-        // Start new timer
-        timer = setInterval(() => {
-            timeLeft--;
-            timerElement.textContent = timeLeft;
-            updateProgressBar();
+document.addEventListener('DOMContentLoaded', function() {
+            // Quiz questions
+            const questions = [
+                {
+                    question: "Which planet is known as the Red Planet?",
+                    options: ["Venus", "Mars", "Jupiter", "Saturn"],
+                    answer: 1
+                },
+                {
+                    question: "What is the largest mammal in the world?",
+                    options: ["African Elephant", "Blue Whale", "Giraffe", "Hippopotamus"],
+                    answer: 1
+                },
+                {
+                    question: "Which element has the chemical symbol 'O'?",
+                    options: ["Gold", "Oxygen", "Osmium", "Oganesson"],
+                    answer: 1
+                },
+                {
+                    question: "Who painted the Mona Lisa?",
+                    options: ["Vincent van Gogh", "Pablo Picasso", "Leonardo da Vinci", "Michelangelo"],
+                    answer: 2
+                },
+                {
+                    question: "What is the capital of Japan?",
+                    options: ["Seoul", "Beijing", "Tokyo", "Bangkok"],
+                    answer: 2
+                }
+            ];
             
-            if (timeLeft <= 0) {
+            // DOM elements
+            const quizBody = document.getElementById('quiz-body');
+            const resultContainer = document.getElementById('result-container');
+            const questionNumber = document.getElementById('question-number');
+            const questionText = document.getElementById('question-text');
+            const optionsContainer = document.getElementById('options-container');
+            const timerBar = document.getElementById('timer-bar');
+            const timerText = document.getElementById('timer-text');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const submitBtn = document.getElementById('submit-btn');
+            const restartBtn = document.getElementById('restart-btn');
+            const scoreText = document.getElementById('score-text');
+            const message = document.getElementById('message');
+            
+            // Quiz state
+            let currentQuestion = 0;
+            let userAnswers = new Array(questions.length).fill(null);
+            let timer;
+            let timeLeft = 30;
+            
+            // Initialize quiz
+            function initQuiz() {
+                showQuestion();
+                startTimer();
+                
+                // Event listeners
+                prevBtn.addEventListener('click', goToPreviousQuestion);
+                nextBtn.addEventListener('click', goToNextQuestion);
+                submitBtn.addEventListener('click', showResults);
+                restartBtn.addEventListener('click', restartQuiz);
+                
+                // Option selection
+                optionsContainer.addEventListener('click', function(e) {
+                    if (e.target.classList.contains('option')) {
+                        const optionIndex = parseInt(e.target.getAttribute('data-index'));
+                        selectOption(optionIndex);
+                    }
+                });
+            }
+            
+            // Show current question
+            function showQuestion() {
+                const question = questions[currentQuestion];
+                
+                questionNumber.textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+                questionText.textContent = question.question;
+                
+                // Clear previous options
+                optionsContainer.innerHTML = '';
+                
+                // Add new options
+                question.options.forEach((option, index) => {
+                    const optionElement = document.createElement('div');
+                    optionElement.classList.add('option');
+                    optionElement.setAttribute('data-index', index);
+                    optionElement.textContent = option;
+                    
+                    if (userAnswers[currentQuestion] === index) {
+                        optionElement.classList.add('selected');
+                    }
+                    
+                    optionsContainer.appendChild(optionElement);
+                });
+                
+                // Update buttons
+                prevBtn.disabled = currentQuestion === 0;
+                
+                if (currentQuestion === questions.length - 1) {
+                    nextBtn.style.display = 'none';
+                    submitBtn.style.display = 'block';
+                } else {
+                    nextBtn.style.display = 'block';
+                    submitBtn.style.display = 'none';
+                }
+            }
+            
+            // Select an option
+            function selectOption(optionIndex) {
+                userAnswers[currentQuestion] = optionIndex;
+                
+                // Update UI to show selected option
+                const options = optionsContainer.querySelectorAll('.option');
+                options.forEach(option => option.classList.remove('selected'));
+                options[optionIndex].classList.add('selected');
+            }
+            
+            // Start timer for current question
+            function startTimer() {
                 clearInterval(timer);
-                handleTimeOut();
+                timeLeft = 30;
+                updateTimerDisplay();
+                
+                timer = setInterval(function() {
+                    timeLeft--;
+                    updateTimerDisplay();
+                    
+                    if (timeLeft <= 0) {
+                        clearInterval(timer);
+                        if (currentQuestion === questions.length - 1) {
+                            showResults();
+                        } else {
+                            goToNextQuestion();
+                        }
+                    }
+                }, 1000);
             }
-        }, 1000);
-    }
-
-    // Update the progress bar
-    function updateProgressBar() {
-        const progressPercent = (timeLeft / QUESTION_TIME) * 100;
-        progressFillElement.style.width = `${progressPercent}%`;
-        
-        // Change color based on time left
-        if (timeLeft <= 10) {
-            progressFillElement.style.background = 'linear-gradient(to right, #f44336, #e53935)';
-        } else if (timeLeft <= 20) {
-            progressFillElement.style.background = 'linear-gradient(to right, #ff9800, #fb8c00)';
-        } else {
-            progressFillElement.style.background = 'linear-gradient(to right, var(--accent-color), var(--primary-color))';
-        }
-    }
-
-    // Handle when time runs out
-    function handleTimeOut() {
-        // Disable all answer buttons
-        Array.from(answerButtonsElement.children).forEach(button => {
-            button.disabled = true;
-            if (button.dataset.correct === 'true') {
-                button.classList.add('correct');
+            
+            // Update timer display
+            function updateTimerDisplay() {
+                const percentage = (timeLeft / 30) * 100;
+                timerBar.style.width = `${percentage}%`;
+                timerText.textContent = `${timeLeft}s`;
+                
+                // Change color when time is running out
+                if (timeLeft <= 10) {
+                    timerBar.style.background = '#ff4757';
+                } else if (timeLeft <= 20) {
+                    timerBar.style.background = '#ffa502';
+                } else {
+                    timerBar.style.background = '#ffce54';
+                }
             }
+            
+            // Navigate to next question
+            function goToNextQuestion() {
+                clearInterval(timer);
+                currentQuestion++;
+                showQuestion();
+                startTimer();
+            }
+            
+            // Navigate to previous question
+            function goToPreviousQuestion() {
+                clearInterval(timer);
+                currentQuestion--;
+                showQuestion();
+                startTimer();
+            }
+            
+            // Show quiz results
+            function showResults() {
+                clearInterval(timer);
+                
+                // Calculate score
+                let score = 0;
+                userAnswers.forEach((answer, index) => {
+                    if (answer === questions[index].answer) {
+                        score++;
+                    }
+                });
+                
+                // Update results UI
+                scoreText.textContent = `${score}/${questions.length}`;
+                
+                // Set message based on score
+                if (score === questions.length) {
+                    message.textContent = "Perfect! You got all questions right!";
+                } else if (score >= questions.length * 0.7) {
+                    message.textContent = "Great job! You scored well above average!";
+                } else if (score >= questions.length * 0.5) {
+                    message.textContent = "Good effort! You passed the quiz.";
+                } else {
+                    message.textContent = "Keep practicing to improve your knowledge.";
+                }
+                
+                // Show results, hide quiz
+                quizBody.style.display = 'none';
+                document.querySelector('.quiz-footer').style.display = 'none';
+                document.querySelector('.quiz-header').style.display = 'none';
+                resultContainer.style.display = 'block';
+            }
+            
+            // Restart quiz
+            function restartQuiz() {
+                currentQuestion = 0;
+                userAnswers = new Array(questions.length).fill(null);
+                
+                // Reset UI
+                quizBody.style.display = 'block';
+                document.querySelector('.quiz-footer').style.display = 'flex';
+                document.querySelector('.quiz-header').style.display = 'block';
+                resultContainer.style.display = 'none';
+                
+                showQuestion();
+                startTimer();
+            }
+            
+            // Initialize the quiz
+            initQuiz();
         });
-        
-        // If it's the last question, show results
-        if (currentQuestionIndex === shuffledQuestions.length - 1) {
-            setTimeout(showResults, 1000);
-        } else {
-            nextButton.classList.remove('hide');
-        }
-    }
-
-    // Handle answer selection
-    function selectAnswer(e) {
-        clearInterval(timer); // Stop the timer
-        
-        const selectedButton = e.target;
-        const correct = selectedButton.dataset.correct === 'true';
-        
-        if (correct) {
-            selectedButton.classList.add('correct');
-            score++;
-            scoreElement.textContent = score;
-        } else {
-            selectedButton.classList.add('wrong');
-        }
-        
-        // Show correct answer and disable all buttons
-        Array.from(answerButtonsElement.children).forEach(button => {
-            button.disabled = true;
-            if (button.dataset.correct === 'true') {
-                button.classList.add('correct');
-            }
-        });
-        
-        // If it's the last question, show results after a delay
-        if (currentQuestionIndex === shuffledQuestions.length - 1) {
-            setTimeout(showResults, 1000);
-        } else {
-            nextButton.classList.remove('hide');
-        }
-    }
-
-    // Move to the next question
-    function nextQuestion() {
-        currentQuestionIndex++;
-        nextButton.classList.add('hide');
-        showQuestion(shuffledQuestions[currentQuestionIndex]);
-        startTimer();
-    }
-
-    // Show final results
-    function showResults() {
-        const totalQuestions = shuffledQuestions.length;
-        const percentage = Math.round((score / totalQuestions) * 100);
-        
-        finalScoreElement.textContent = score;
-        maxScoreElement.textContent = totalQuestions;
-        
-        // Set result message based on score
-        let message, emoji;
-        if (percentage >= 80) {
-            message = "Excellent work! You're a knowledge master!";
-            emoji = "🎉";
-        } else if (percentage >= 60) {
-            message = "Good job! You know your stuff!";
-            emoji = "👍";
-        } else if (percentage >= 40) {
-            message = "Not bad! Keep learning!";
-            emoji = "🤔";
-        } else {
-            message = "Keep practicing! You'll get better!";
-            emoji = "📚";
-        }
-        
-        resultsMessageElement.textContent = message;
-        resultsEmojiElement.textContent = emoji;
-        
-        resultsElement.classList.remove('hide');
-        restartButton.classList.remove('hide');
-    }
-
-    // Restart the quiz
-    function restartQuiz() {
-        resultsElement.classList.add('hide');
-        restartButton.classList.add('hide');
-        startQuiz();
-    }
-
-    // Event listeners
-    startButton.addEventListener('click', startQuiz);
-    nextButton.addEventListener('click', nextQuestion);
-    restartButton.addEventListener('click', restartQuiz);
-});
