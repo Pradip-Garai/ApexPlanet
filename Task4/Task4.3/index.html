@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopMania - Product Listing</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+     <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-shopping-bag"></i>
+                ShopMania
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="Search for products...">
+            </div>
+            <div class="user-actions">
+                <a href="#"><i class="fas fa-user"></i></a>
+                <a href="#"><i class="fas fa-shopping-cart"></i></a>
+                <a href="#"><i class="fas fa-heart"></i></a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="main-content">
+            <aside class="filters">
+                <div class="filter-section">
+                    <h3><i class="fas fa-list"></i> Categories</h3>
+                    <ul class="category-list">
+                        <li>
+                            <input type="checkbox" id="electronics" checked>
+                            <label for="electronics">Electronics</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="clothing" checked>
+                            <label for="clothing">Clothing</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="home" checked>
+                            <label for="home">Home & Kitchen</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="books" checked>
+                            <label for="books">Books</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="sports" checked>
+                            <label for="sports">Sports & Fitness</label>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="filter-section">
+                    <h3><i class="fas fa-dollar-sign"></i> Price Range</h3>
+                    <div class="price-filter">
+                        <input type="range" min="0" max="1000" value="1000" id="price-range">
+                        <div class="price-values">
+                            <span>$0</span>
+                            <span id="max-price">$1000</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="filter-section">
+                    <h3><i class="fas fa-star"></i> Rating</h3>
+                    <ul class="category-list">
+                        <li>
+                            <input type="checkbox" id="rating-4" checked>
+                            <label for="rating-4">4★ & above</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="rating-3" checked>
+                            <label for="rating-3">3★ & above</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="rating-2" checked>
+                            <label for="rating-2">2★ & above</label>
+                        </li>
+                    </ul>
+                </div>
+            </aside>
+
+            <section class="products">
+                <div class="products-header">
+                    <div class="products-count">
+                        Showing <span id="count">12</span> products
+                    </div>
+                    <div class="sort-options">
+                        <select id="sort-by">
+                            <option value="default">Sort by: Featured</option>
+                            <option value="price-asc">Price: Low to High</option>
+                            <option value="price-desc">Price: High to Low</option>
+                            <option value="rating-desc">Rating: High to Low</option>
+                            <option value="name-asc">Name: A to Z</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="product-grid" id="product-grid">
+                    <!-- Products will be dynamically inserted here -->
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2023 ShopMania. All rights reserved.</p>
+    </footer>
+
+    <script src="./script.js"> </script>
+</body>
+</html>

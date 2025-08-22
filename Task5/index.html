@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Blog | Thoughtful Content</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header with navigation -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-pen-nib"></i>
+                <span>ModernBlog</span>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="#" class="active">Home</a></li>
+                    <li><a href="#">Categories</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search articles...">
+            </div>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Discover Stories, Ideas, and Expertise</h1>
+                <p>Explore a collection of thoughtful articles on technology, design, business, and more.</p>
+                <button class="cta-button">Start Reading</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured posts -->
+    <section class="featured-posts">
+        <div class="container">
+            <h2 class="section-title">Featured Articles</h2>
+            <div class="featured-grid">
+                <article class="post-card featured">
+                    <div class="post-image">
+                        <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Web Development Trends">
+                        <div class="category-tag">Technology</div>
+                    </div>
+                    <div class="post-content">
+                        <h3>The Future of Web Development in 2025</h3>
+                        <p>Exploring the latest frameworks, tools, and methodologies that are shaping the future of web development.</p>
+                        <div class="post-meta">
+                            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1160&q=80" alt="Author" class="author-avatar">
+                            <div class="meta-details">
+                                <span class="author-name">Sarah Johnson</span>
+                                <span class="post-date">August 15, 2025</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="post-card featured">
+                    <div class="post-image">
+                        <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1164&q=80" alt="UI Design Principles">
+                        <div class="category-tag">Design</div>
+                    </div>
+                    <div class="post-content">
+                        <h3>Essential UI Design Principles for Modern Applications</h3>
+                        <p>Learn the fundamental principles that every designer should know when creating user interfaces.</p>
+                        <div class="post-meta">
+                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1160&q=80" alt="Author" class="author-avatar">
+                            <div class="meta-details">
+                                <span class="author-name">Michael Chen</span>
+                                <span class="post-date">August 10, 2025</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- All posts with filtering -->
+    <section class="all-posts">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Latest Articles</h2>
+                <div class="category-filter">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="technology">Technology</button>
+                    <button class="filter-btn" data-filter="design">Design</button>
+                    <button class="filter-btn" data-filter="business">Business</button>
+                    <button class="filter-btn" data-filter="lifestyle">Lifestyle</button>
+                </div>
+            </div>
+
+            <div class="posts-grid">
+                <!-- Posts will be loaded dynamically with JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter section -->
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2>Stay Updated</h2>
+                <p>Subscribe to our newsletter to receive the latest articles and news directly in your inbox.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your email address" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <i class="fas fa-pen-nib"></i>
+                        <span>ModernBlog</span>
+                    </div>
+                    <p>Creating meaningful content that inspires and educates.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Categories</h3>
+                    <ul>
+                        <li><a href="#">Technology</a></li>
+                        <li><a href="#">Design</a></li>
+                        <li><a href="#">Business</a></li>
+                        <li><a href="#">Lifestyle</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Get in Touch</h3>
+                    <p>info@modernblog.com</p>
+                    <p>+1 (555) 123-4567</p>
+                    <p>123 Web Street, Digital City</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ModernBlog. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

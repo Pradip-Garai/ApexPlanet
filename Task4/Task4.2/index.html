@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Notes App</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-sticky-note"></i> Modern Notes</h1>
+            <p>Your thoughts, saved locally</p>
+        </header>
+
+        <div class="app-container">
+            <div class="sidebar">
+                <div class="search-container">
+                    <input type="text" id="search-notes" placeholder="Search notes...">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="notes-list" id="notes-list">
+                    <!-- Notes will be populated here by JavaScript -->
+                </div>
+                <button id="new-note-btn" class="new-note-btn">
+                    <i class="fas fa-plus"></i> New Note
+                </button>
+            </div>
+
+            <div class="note-editor">
+                <input type="text" id="note-title" placeholder="Note Title">
+                <textarea id="note-content" placeholder="Start writing your note here..."></textarea>
+                <div class="editor-actions">
+                    <button id="save-note" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Save Note
+                    </button>
+                    <button id="delete-note" class="btn btn-danger">
+                        <i class="fas fa-trash"></i> Delete Note
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
